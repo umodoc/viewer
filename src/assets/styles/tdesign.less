@@ -1,0 +1,180 @@
+@import 'tdesign-vue-next/esm/_common/style/web/_global.less';
+@import 'tdesign-vue-next/esm/_common/style/web/theme/_index.less';
+
+body {
+  --td-brand-color: var(--uv-primary-color);
+  .uv-popup {
+    --td-radius-medium: var(--uv-radius);
+    --td-warning-color: var(--uv-warning-color);
+    --td-error-color: var(--uv-error-color);
+    &.uv-tooltip {
+      --td-font-size-body-medium: var(--uv-font-size-small);
+      .uv-popup__content {
+        padding: 5px 12px;
+        max-width: 200px;
+        &:empty {
+          display: none;
+        }
+      }
+    }
+    .uv-dropdown {
+      ul {
+        margin: 0;
+      }
+      &__menu {
+        padding: var(--td-pop-padding-s);
+        max-height: var(--uv-popup-max-height);
+      }
+      &__item {
+        font-size: var(--uv-font-size-small);
+        padding: 2px var(--td-comp-paddingLR-s);
+        min-width: 80px !important;
+      }
+    }
+    &.uv-select__dropdown {
+      .uv-popup__content {
+        box-shadow:
+          var(--td-shadow-2), var(--td-shadow-inset-top),
+          var(--td-shadow-inset-right), var(--td-shadow-inset-bottom),
+          var(--td-shadow-inset-left);
+        max-height: var(--uv-popup-max-height);
+      }
+      .uv-select-option {
+        &-group__header {
+          font-size: var(--uv-font-size-small);
+        }
+        &.uv-size-s {
+          height: 26px;
+        }
+      }
+    }
+    &__content {
+      padding: 0;
+    }
+  }
+  .uv-button {
+    user-select: none;
+  }
+  .uv-dialog,
+  .t-dialog {
+    --td-warning-color: var(--uv-warning-color);
+    --td-error-color: var(--uv-error-color);
+    box-shadow:
+      var(--td-shadow-2), var(--td-shadow-inset-top),
+      var(--td-shadow-inset-right), var(--td-shadow-inset-bottom),
+      var(--td-shadow-inset-left);
+    border: none;
+    border-radius: var(--uv-radius-medium);
+    color: var(--uv-text-color);
+    &__mask {
+      position: absolute !important;
+    }
+    &__ctx {
+      --td-mask-active: var(--uv-mask-color);
+      .uv-dialog__wrap,
+      .t-dialog__wrap {
+        position: absolute;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      &--fixed,
+      &--modeless {
+        position: absolute !important;
+      }
+      &--fixed {
+        .uv-dialog,
+        .t-dialog {
+          &__mask {
+            backdrop-filter: blur(5px);
+          }
+        }
+      }
+    }
+    &:not(.uv-dialog__fullscreen):not(.t-dialog__fullscreen) {
+      padding: 22px 25px 25px;
+    }
+    &__fullscreen {
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow: none;
+    }
+    &__header {
+      background: none;
+      &-content {
+        display: flex;
+        font-size: 18px;
+        font-weight: 400;
+        align-items: center;
+        > .uv-icon {
+          margin-right: 8px;
+          font-size: 24px;
+        }
+      }
+      &--fullscreen {
+        min-height: 58px;
+        padding: 0 15px;
+        border-bottom: solid 1px var(--uv-border-color);
+        .uv-dialog__header-content,
+        .t-dialog__header-content {
+          justify-content: flex-start;
+        }
+      }
+    }
+    &__close {
+      color: var(--uv-text-color-light);
+      &:hover {
+        color: var(--uv-text-color);
+      }
+    }
+    &__body {
+      &--fullscreen {
+        flex: 1;
+        padding: 0;
+      }
+    }
+    &__footer {
+      padding-top: 5px;
+      &--fullscreen {
+        padding: 15px;
+        border-top: solid 1px var(--uv-border-color);
+      }
+    }
+  }
+
+  .uv-slider {
+    &__button {
+      --td-comp-size-xxxs: 10px;
+    }
+  }
+
+  .uv-drawer {
+    &__mask {
+      --td-mask-active: var(--uv-mask-color);
+    }
+    &__close-btn {
+      color: rgba(0, 0, 0, 0.3);
+      &:hover {
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .uv-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .uv-dropdown {
+    &__menu {
+      --td-pop-padding-s: 10px;
+    }
+    &__item {
+      max-width: 200px !important;
+    }
+    .uv-divider--horizontal {
+      margin: 6px 0;
+      width: 100%;
+      background-color: var(--uv-border-color-light);
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "@umoteam/viewer",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Umo Viewer is a PDF document viewer built with Vue3 and pdf.js. It allows you to preview PDF documents directly in your browser and also supports rich HTML content preview.",
+  "keywords": [
+    "pdf viewer",
+    "pdfjs viewer",
+    "vue viewer",
+    "umo viewer",
+    "umo editor",
+    "pdfjs"
+  ],
+  "author": {
+    "name": "umodoc",
+    "email": "contact@umodoc.com",
+    "url": "https://www.umodoc.com"
+  },
+  "license": "MIT",
+  "homepage": "https://dev.umodoc.com/cn/docs/viewer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umodoc/viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/umodoc/viewer/issues",
+    "email": "contact@umodoc.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/umo-viewer.js"
+    },
+    "./style": {
+      "import": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --port 9100 --open --force",
+    "format": "prettier --write .",
+    "check:code": "eslint --cache src",
+    "check:style": "stylelint src/**/*.{css,less,vue}",
+    "lint:code": "eslint --cache --fix src",
+    "lint:style": "stylelint --fix src/**/*.{css,less,vue}",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@tato30/vue-pdf": "^1.11.3",
+    "@umoteam/editor": "^7.0.1",
+    "@vueuse/core": "^13.5.0",
+    "echarts": "5",
+    "plyr": "^3.7.8",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.10.0",
+    "@intlify/unplugin-vue-i18n": "^5.0.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-functional": "^5.0.8",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.1.3",
+    "eslint-plugin-vue": "^9.28.0",
+    "globals": "^15.9.0",
+    "less": "^4.2.0",
+    "less-loader": "^12.2.0",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8.3.3",
+    "postcss-html": "^1.7.0",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.9.0",
+    "stylelint-config-recommended-less": "^3.0.1",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-less": "^3.0.1",
+    "tdesign-vue-next": "1.9.8",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue": "^5.1.5",
+    "unplugin-vue-components": "^0.27.4",
+    "vite": "^4.5.3",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue": "^3.0.11"
+  }
+}

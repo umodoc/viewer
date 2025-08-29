@@ -1,0 +1,25 @@
+@import './_variables.less';
+@import './tdesign.less';
+
+.uv-scrollbar {
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: var(--uv-scrollbar-size) !important;
+    height: var(--uv-scrollbar-size) !important;
+    position: absolute;
+  }
+  &::-webkit-scrollbar-track {
+    width: var(--uv-scrollbar-size) !important;
+    background: transparent;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: var(--uv-scrollbar-thumb-color);
+    background-clip: padding-box;
+    border-radius: 1em;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--uv-scrollbar-thumb-hover-color);
+  }
+}

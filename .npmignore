@@ -1,0 +1,23 @@
+// Ignore all files and folders starting with a dot
+.*
+
+// Ignore logs
+*.log*
+
+// Ignore timestamp files
+*.timestamp*
+
+// Ignore development files
+node_modules
+src/
+public/
+biome.json
+eslint.config.mjs
+index.html
+jsconfig.json
+package.json
+TODO
+tsconfig.json
+vite.config.ts
+vitest.config.ts
+yarn.lock

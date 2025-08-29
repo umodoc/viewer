@@ -1,0 +1,54 @@
+:root {
+  // 主题色
+  --uv-primary-color: #3480f9;
+  --uv-color-white: #fff;
+  --uv-color-black: #000;
+
+  // 字体相关
+  --uv-font-family:
+    helvetica neue, helvetica, pingfang sc, hiragino sans gb, microsoft yahei,
+    simsun, sans-serif;
+  --uv-font-size: 14px;
+  --uv-font-size-small: 12px;
+  --uv-text-color: rgb(51, 54, 57);
+  --uv-text-color-light: rgba(0, 0, 0, 0.5);
+
+  // 边框
+  --uv-shadow:
+    0 3px 14px 2px rgba(0, 0, 0, 0.03), 0 8px 10px 1px rgba(0, 0, 0, 4%),
+    0 5px 5px -3px rgba(0, 0, 0, 8%);
+  --uv-border-color: rgba(0, 0, 0, 0.08);
+  --uv-border-color-light: rgba(0, 0, 0, 0.05);
+
+  // 圆角
+  --uv-radius: 3px;
+  --uv-radius-medium: 5px;
+
+  // 弹出层
+  --uv-popup-content-padding: 12px;
+  --uv-popup-max-height: max(60vh, 180px);
+  --uv-tooltip-content-padding: 6px 10px;
+  --uv-mask-color: transparent;
+
+  // 布局相关
+  --uv-header-height: 56px;
+  --uv-container-background: #f4f5f7;
+  --uv-page-shadow:
+    rgba(0, 0, 0, 0.06) 0px 0px 10px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px;
+
+  // 滚动条
+  --uv-scrollbar-size: 6px;
+  --uv-scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
+  --uv-scrollbar-thumb-hover-color: rgba(0, 0, 0, 0.35);
+}
+
+[theme-mode='dark'] {
+  --uv-color-white: #17171a;
+  --uv-color-black: #fff;
+  --uv-text-color: #ddd;
+  --uv-text-color-light: #bbb;
+  --uv-border-color: rgba(255, 255, 255, 0.15);
+  --uv-border-color-dark: rgba(255, 255, 255, 0.2);
+  --uv-border-color-light: rgba(255, 255, 255, 0.08);
+  --uv-container-background: #2a2b2d;
+}
