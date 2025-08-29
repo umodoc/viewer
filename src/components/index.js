@@ -8,4 +8,4 @@ const useUmoViewer = {
   },
 }
 
-export { UmoViewer as default, useUmoViewer }
+export { UmoViewer as default, UmoViewer, useUmoViewer }
