@@ -29,7 +29,10 @@
       <p>
         <a href="https://github.com/umodoc" target="_blank"> Github </a>
         |
-        <a href="https://viewer.umodoc.com/cn/docs" target="_blank">
+        <a
+          :href="`https://dev.umodoc.com/${locale === 'zh-CN' ? 'cn' : 'en'}/docs/viewer`"
+          target="_blank"
+        >
           {{ t('documentation') }}
         </a>
         |
@@ -44,7 +47,7 @@
 <script setup>
 import { version } from '../options'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const state = inject('state')
 </script>
 
