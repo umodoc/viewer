@@ -187,6 +187,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   }
   &-header {
     height: var(--uv-header-height);
