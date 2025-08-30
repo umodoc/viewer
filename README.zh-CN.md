@@ -13,7 +13,7 @@
 
 # 基本介绍
 
-Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://github.com/mozilla/pdf.js) 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 HTML 富文本内容。
+Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://github.com/mozilla/pdf.js) 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
 
 Umo Viewer 是的诞生是为了解决[Umo Editor](https://github.com/umodoc/editor)文档的预览问题。在大部分的非编辑应用场景中，只需要显示文档内容而无需加载整个编辑器以提高加载速度，Umo Viewer 能与 [Umo Editor](https://github.com/umodoc/editor) 文档无缝集成并保持良好的兼容性。
 
@@ -31,7 +31,7 @@ Umo Viewer 是的诞生是为了解决[Umo Editor](https://github.com/umodoc/edi
 
 ## 核心特性
 
-- 支持 PDF 文档和富文本的预览，可仅作为 PDF 文档查看器使用
+- 支持 PDF 文档和 [Umo Editor](https://github.com/umodoc/editor) 文档的预览，可仅作为 PDF 文档查看器使用
 - 支持输入密码解锁文档
 - 丰富的自定义配置
 - 支持多语言设置
@@ -41,7 +41,7 @@ Umo Viewer 是的诞生是为了解决[Umo Editor](https://github.com/umodoc/edi
 - 支持自动提取文档大纲或缩略图导航
 - 支持缩放和自适应布局
 - 支持在弹框中显示或者通过 Iframe 中嵌入
-- 完全兼容[Umo Editor](https://github.com/umodoc/editor)富文本
+- 完全兼容 [Umo Editor](https://github.com/umodoc/editor) 文档内容
 
 ## 浏览器支持
 

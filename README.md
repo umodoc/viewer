@@ -13,7 +13,7 @@
 
 # 中文介绍
 
-Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://github.com/mozilla/pdf.js) 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 HTML 富文本内容。
+Umo Viewer 是一款 PDF 文档查看器，基于 Vue3 和 [PDF.js](https://github.com/mozilla/pdf.js) 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
 
 Umo Viewer 是的诞生是为了解决 [Umo Editor](https://github.com/umodoc/editor) 文档的预览问题。在大部分的非编辑应用场景中，只需要显示文档内容而无需加载整个编辑器以提高加载速度，Umo Viewer 能与 [Umo Editor](https://github.com/umodoc/editor) 文档无缝集成并保持良好的兼容性。
 
@@ -21,7 +21,7 @@ Umo Viewer 是的诞生是为了解决 [Umo Editor](https://github.com/umodoc/ed
 
 # Introduction
 
-Umo Viewer is a PDF document viewer built with Vue3 and [PDF.js](https://github.com/mozilla/pdf.js). It allows you to preview PDF documents directly in your browser and also supports rich HTML content preview.
+Umo Viewer is a PDF document viewer built with Vue3 and [PDF.js](https://github.com/mozilla/pdf.js). It supports previewing PDF documents directly in the browser and also supports previewing Umo Editor document content.
 
 Umo Viewer was created to solve the preview problem for [Umo Editor](https://github.com/umodoc/viewer) documents. In most non-editing scenarios, you only need to display document content without loading the entire editor, which improves loading speed. Umo Viewer integrates seamlessly with [Umo Editor](https://github.com/umodoc/viewer) documents and maintains great compatibility.
 
@@ -39,7 +39,7 @@ See [https://dev.umodoc.com/en/docs/viewer](https://dev.umodoc.com/en/docs/viewe
 
 ## Key Features
 
-- Preview PDF documents and rich text; can be used as a standalone PDF viewer
+- Support for previewing PDF documents and [Umo Editor](https://github.com/umodoc/editor) documents, can be used solely as a PDF document viewer
 - Password protection for documents
 - Extensive customization options
 - Multi-language support
@@ -49,7 +49,7 @@ See [https://dev.umodoc.com/en/docs/viewer](https://dev.umodoc.com/en/docs/viewe
 - Automatic outline extraction and thumbnail navigation
 - Zoom and responsive layout
 - Display in modal dialogs or embed via iframe
-- Fully compatible with [Umo Editor](https://github.com/umodoc/editor) rich text content
+- Fully compatible with [Umo Editor](https://github.com/umodoc/editor) document content
 
 ## Browser Support
 
