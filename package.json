@@ -1,6 +1,6 @@
 {
   "name": "@umoteam/viewer",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "description": "Umo Viewer is a PDF document viewer built with Vue3 and pdf.js. It allows you to preview PDF documents directly in your browser and also supports rich HTML content preview.",
   "keywords": [
@@ -17,7 +17,7 @@
     "url": "https://www.umodoc.com"
   },
   "license": "MIT",
-  "homepage": "https://dev.umodoc.com/cn/docs/viewer",
+  "homepage": "https://dev.umodoc.com/en/docs/viewer",
   "repository": {
     "type": "git",
     "url": "https://github.com/umodoc/viewer.git"
