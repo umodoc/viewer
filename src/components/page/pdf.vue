@@ -29,6 +29,8 @@ const container = inject('container')
 const options = inject('options')
 const state = inject('state')
 
+state.value.loaded = false
+
 const pdfDocument = usePDF(options.value.pdf)
 const { pdf, pages } = pdfDocument
 state.value.pdfDocument = pdfDocument

@@ -55,8 +55,9 @@ import { player } from '@/utils/player'
 const container = inject('container')
 const options = inject('options')
 const state = inject('state')
-
 const { locale, t } = useI18n()
+
+state.value.loaded = false
 
 // 页面大小
 const pageRef = ref(null)

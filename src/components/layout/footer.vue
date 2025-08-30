@@ -154,7 +154,6 @@ const currentView = computed(() => {
 })
 watch(currentView, () => {
   state.value.aside = currentView === 'html' ? 'toc' : 'thumbs'
-  state.value.loaded = false
 })
 
 // 全屏设置
