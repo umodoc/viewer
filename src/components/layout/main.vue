@@ -1,5 +1,8 @@
 <template>
-  <aside v-if="options.showAside && state.loaded" class="umo-viewer-main-aside">
+  <aside
+    v-if="!options.needPassword && options.showAside && state.loaded"
+    class="umo-viewer-main-aside"
+  >
     <page-aside />
   </aside>
   <div class="umo-viewer-main-body uv-scrollbar" :data-view="state.view">

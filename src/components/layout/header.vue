@@ -1,6 +1,7 @@
 <template>
   <div class="umo-viewer-header-title">
     <t-dropdown
+      v-if="!options.needPassword"
       :attach="container"
       :popup-props="{
         onVisibleChange: (visible) => (menuVisible = visible),
