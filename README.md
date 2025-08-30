@@ -27,7 +27,7 @@ Umo Viewer was created to solve the preview problem for [Umo Editor](https://git
 
 [Umo Editor](https://github.com/umodoc/viewer) is an open-source document editor based on Vue3 and Tiptap. It provides powerful document editing capabilities and AI-assisted creation features. Umo Editor supports pagination and normal web layout, Markdown syntax, rich text editing, insertion of various node types, page style settings, document export, and printing. Additionally, it supports custom extensions, multi-language settings, and a dark theme. Umo Editor also supports web layout, and you can use it as a regular rich text editor. Umo Viewer is a document viewer for Umo Editor, providing seamless integration with Umo Editor documents and preview features.
 
-![Umo Viewer](https://dev.umodoc.com/images/umo-viewer-en@2x.png)
+![Umo Viewer](https://s2.umodoc.com/images/umo-viewer-en@2x.png)
 
 ## Online Experience
 
