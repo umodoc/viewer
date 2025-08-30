@@ -14,7 +14,7 @@
 
 <script setup>
 import html from '../public/test/demo.html?raw'
-import '/public/test/umo-editor.css'
+import '@umoteam/editor/style'
 
 const options = ref({
   lang: 'zh-CN',
