@@ -87,6 +87,10 @@ If you have any questions or suggestions, please contact us through the followin
 - Community: [GitHub Discussions](https://github.com/umodoc/viewer/discussions)
 - Email: [contact@umodoc.com](mailto:contact@umodoc.com)
 
+## Technical Exchange
+
+- Discord：[Umo Editor](https://discord.gg/yBwBmm8e)
+
 ## Support Us
 
 If you find Umo Viewer useful, please consider supporting us in the following ways:
