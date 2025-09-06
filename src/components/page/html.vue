@@ -294,7 +294,6 @@ watch(
 .umo-zoomable-container {
   box-shadow: var(--uv-page-shadow);
   margin: 0 auto;
-  overflow: hidden;
   p,
   ol,
   ul {
