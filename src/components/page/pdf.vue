@@ -45,6 +45,7 @@ const onLoadPage = () => {
 }
 
 // 监听滚动，同步改变 activePage
+let observer = null
 onMounted(() => {
   // 监听 umo-view-page 在可视区域的页面，通过 data-page 赋值 activePage
   const pagesEl = document.querySelector(`${container} .umo-viewer-main-body`)
@@ -53,7 +54,7 @@ onMounted(() => {
   }
   pagesEl.addEventListener('scroll', () => {
     // 监听当前哪个页面进入了可视区域
-    const observer = new IntersectionObserver((entries) => {
+    observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const activePage = Number(entry.target.dataset.page)
@@ -67,10 +68,10 @@ onMounted(() => {
     pagesEl.querySelectorAll('.umo-viewer-page').forEach((page) => {
       observer.observe(page)
     })
-    onUnmounted(() => {
-      if (observer) observer.disconnect()
-    })
   })
+})
+onUnmounted(() => {
+  if (observer) observer.disconnect()
 })
 </script>
 
