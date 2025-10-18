@@ -67,6 +67,9 @@ onMounted(() => {
     pagesEl.querySelectorAll('.umo-viewer-page').forEach((page) => {
       observer.observe(page)
     })
+    onUnmounted(() => {
+      if (observer) observer.disconnect()
+    })
   })
 })
 </script>
