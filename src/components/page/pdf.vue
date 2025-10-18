@@ -44,48 +44,31 @@ const onLoadPage = () => {
   }
 }
 
-// 页面滚动时，更新当前选中的缩略图
-let mainBodyEl = null
-const setActivePage = () => {
-  if (state.value.aside !== 'thumbs' || !mainBodyEl) {
-    return
-  }
-  const containerTop = mainBodyEl.getBoundingClientRect().top
-  const items = mainBodyEl.querySelectorAll('.umo-viewer-page')
-  let closest = null
-  let minOffset = -Infinity
-
-  for (let item of items) {
-    const offset = item.getBoundingClientRect().top - containerTop
-    if (offset <= 0 && offset > minOffset) {
-      minOffset = offset
-      closest = item
-    }
-  }
-
-  if (!closest) {
-    return
-  }
-  const page = Number(closest.dataset.page)
-  if (page && !isNaN(page)) {
-    state.value.activePage = page
-  }
-}
+// 监听滚动，同步改变 activePage
 onMounted(() => {
-  mainBodyEl = document.querySelector(`${container} .umo-viewer-main-body`)
-  mainBodyEl.addEventListener('scroll', setActivePage)
+  // 监听 umo-view-page 在可视区域的页面，通过 data-page 赋值 activePage
+  const pagesEl = document.querySelector(`${container} .umo-viewer-main-body`)
+  if (!pagesEl) {
+    return
+  }
+  pagesEl.addEventListener('scroll', () => {
+    // 监听当前哪个页面进入了可视区域
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const activePage = Number(entry.target.dataset.page)
+          if (activePage !== state.value.activePage) {
+            state.value.activePage = activePage
+          }
+        }
+      })
+    })
+    // 监听所有页面
+    pagesEl.querySelectorAll('.umo-viewer-page').forEach((page) => {
+      observer.observe(page)
+    })
+  })
 })
-onUnmounted(() => {
-  mainBodyEl.removeEventListener('scroll', setActivePage)
-})
-watch(
-  () => state.value.aside,
-  async (aside) => {
-    if (aside === 'thumbs') {
-      setTimeout(setActivePage, 500)
-    }
-  },
-)
 </script>
 
 <style lang="less" scoped>
@@ -94,7 +77,7 @@ watch(
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin: 0 auto;
 }
 .umo-viewer-page {

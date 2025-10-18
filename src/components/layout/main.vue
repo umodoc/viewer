@@ -51,6 +51,8 @@ watch(
 .umo-viewer-main {
   &-body {
     padding: 20px;
+    scroll-padding-top: 10px;
+    scroll-padding-bottom: 10px;
     box-sizing: border-box;
     background-color: var(--uv-container-background);
     scroll-behavior: smooth;

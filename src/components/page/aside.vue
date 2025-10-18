@@ -133,22 +133,20 @@ const scrollToPage = (page) => {
 }
 
 // 监听当前页，缩略图滚动到可视区域
-watch(
-  () => state.value.activePage,
-  async () => {
-    await nextTick()
-    setTimeout(() => {
-      try {
-        document
-          .querySelector(`${container} .umo-viewer-aside-page.active`)
-          .scrollIntoView({
-            block: 'nearest',
-            behavior: 'smooth',
-          })
-      } catch {}
-    }, 300)
-  },
-)
+const scrollThumbIntoView = async () => {
+  await nextTick()
+  setTimeout(() => {
+    const activePageEl = document.querySelector(
+      `${container} .umo-viewer-aside-page.active`,
+    )
+    activePageEl.scrollIntoView({
+      block: 'nearest',
+    })
+  }, 350)
+}
+watch(() => state.value.activePage, scrollThumbIntoView, { immediate: true })
+
+watch(() => state.value.aside, scrollThumbIntoView)
 
 // 监听选项卡，当切换页面视图模式时，更新选中状态
 watch(
@@ -219,6 +217,9 @@ watch(
         height: 100%;
         padding: 20px;
         box-sizing: border-box;
+        scroll-padding-top: 15px;
+        scroll-padding-bottom: 15px;
+        scroll-behavior: smooth;
       }
     }
     :deep(.uv-descriptions) {
@@ -264,25 +265,24 @@ watch(
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -15px;
+    gap: 15px;
   }
   &-page {
     width: 150px;
     display: flex;
     position: relative;
     cursor: pointer;
-    transition: outline 0.3s;
+    transition: border 0.3s;
     max-width: 100%;
     user-select: none;
-    padding-top: 15px;
     > :first-child {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      outline: solid 1px var(--uv-border-color);
-      transition: outline 0.3s;
+      border: solid 1px var(--uv-border-color);
+      transition: border 0.3s;
     }
     &-number {
       position: absolute;
@@ -310,7 +310,7 @@ watch(
     }
     &.active {
       > :first-child {
-        outline: solid 2px var(--uv-primary-color);
+        border: solid 2px var(--uv-primary-color);
       }
       .umo-viewer-aside-page-number {
         background-color: var(--uv-primary-color);
