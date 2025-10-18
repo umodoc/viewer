@@ -200,7 +200,7 @@ const setFitWidth = async (enabled = true) => {
     const { page } = state.value
     await nextTick()
     state.value.zoom = Number(
-      ((pageMainWidth - 40) / (page.width + 10)).toFixed(2),
+      ((pageMainWidth - 40) / (page.width + 15)).toFixed(2),
     )
     if (state.value.view === 'pdf') {
       options.value.showMultiPage = false
