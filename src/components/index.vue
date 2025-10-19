@@ -177,6 +177,18 @@ onMounted(() => {
   setTheme(options.value.theme)
   setLocale(options.value.lang)
 })
+watch(
+  () => options.value.theme,
+  (theme) => {
+    setTheme(theme)
+  },
+)
+watch(
+  () => options.value.lang,
+  (lang) => {
+    setLocale(lang)
+  },
+)
 </script>
 
 <style lang="less" scoped>
