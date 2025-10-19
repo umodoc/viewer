@@ -27,16 +27,7 @@ yarn-error.log*
 .stylelintcache
 .prettiercache
 .biomecache
-vite.config.ts.timestamp*
-vitest.config.ts.timestamp*
-
-# Husky
-.husky/_
-
-# Auto Imports
-types/imports.d.ts
-types/components.d.ts
-types/src/*
+vite.config.js.timestamp*
 
 # Lock files
 package-lock.json
