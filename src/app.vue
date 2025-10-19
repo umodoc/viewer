@@ -13,8 +13,9 @@
 </template>
 
 <script setup>
-import html from '../public/test/demo.html?raw'
 import '@umoteam/editor/style'
+
+import html from '../public/test/demo.html?raw'
 
 const options = ref({
   lang: 'zh-CN',

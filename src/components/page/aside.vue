@@ -44,10 +44,10 @@
           <div class="umo-viewer-tabs-content uv-scrollbar">
             <div v-if="state?.pdfDocument" class="umo-viewer-aside-pages">
               <div
-                class="umo-viewer-aside-page"
-                :class="{ active: state.activePage === page }"
                 v-for="page in state.pdfDocument.pages"
                 :key="page"
+                class="umo-viewer-aside-page"
+                :class="{ active: state.activePage === page }"
                 @click="scrollToPage(page)"
               >
                 <pdf-page

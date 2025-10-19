@@ -12,8 +12,8 @@
     </template>
     <div class="umo-viewer-share-container">
       <t-radio-group
-        class="umo-viewer-share-radio-group"
         v-model="shareType"
+        class="umo-viewer-share-radio-group"
         size="small"
         variant="default-filled"
       >

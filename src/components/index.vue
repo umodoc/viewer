@@ -4,7 +4,7 @@
       classPrefix: 'uv',
     }"
   >
-    <div class="umo-viewer-container" :id="containerId">
+    <div :id="containerId" class="umo-viewer-container">
       <header v-if="options.showHeader" class="umo-viewer-header">
         <layout-header />
       </header>
@@ -25,8 +25,9 @@
 </template>
 
 <script setup>
-import { schemaParse } from '@/components/options.js'
 import '@/assets/styles/index.less'
+
+import { schemaParse } from '@/components/options.js'
 
 defineOptions({ name: 'UmoViewer' })
 

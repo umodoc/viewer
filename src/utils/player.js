@@ -1,5 +1,6 @@
-import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
+
+import Plyr from 'plyr'
 
 const locales = {
   'zh-CN': {

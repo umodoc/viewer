@@ -4,10 +4,10 @@
     :style="{ 'flex-direction': options.showMultiPage ? 'row' : 'column' }"
   >
     <div
-      class="umo-viewer-page"
       v-for="page in pages"
-      :key="page"
       :id="`umo-viewer-page-${page}`"
+      :key="page"
+      class="umo-viewer-page"
       :data-page="page"
     >
       <pdf-page
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { VuePDF as PdfPage, usePDF } from '@tato30/vue-pdf'
+import { usePDF, VuePDF as PdfPage } from '@tato30/vue-pdf'
 
 const container = inject('container')
 const options = inject('options')

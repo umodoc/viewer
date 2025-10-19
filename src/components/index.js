@@ -1,4 +1,5 @@
 import 'virtual:svg-icons-register'
+
 import UmoViewer from './index.vue'
 
 const useUmoViewer = {

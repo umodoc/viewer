@@ -50,6 +50,7 @@
 
 <script setup>
 import * as echarts from 'echarts'
+
 import { player } from '@/utils/player'
 
 const container = inject('container')
@@ -258,7 +259,7 @@ const setActiveHeading = () => {
   let closest = null
   let minOffset = -Infinity
 
-  for (let heading of headings) {
+  for (const heading of headings) {
     const offset = heading.getBoundingClientRect().top - containerTop
     if (offset <= 0 && offset > minOffset) {
       minOffset = offset
