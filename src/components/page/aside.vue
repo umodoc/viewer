@@ -134,6 +134,8 @@ const scrollToPage = (page) => {
 
 // 监听当前页，缩略图滚动到可视区域
 const scrollThumbIntoView = async () => {
+  if (state.value.aside !== 'thumbs') return
+  console.log(state.value.activePage)
   await nextTick()
   setTimeout(() => {
     const activePageEl = document.querySelector(
