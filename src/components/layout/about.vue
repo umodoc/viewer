@@ -2,6 +2,7 @@
   <modal
     :visible="state.about"
     width="300px"
+    placement="center"
     :footer="false"
     @close="state.about = false"
   >
