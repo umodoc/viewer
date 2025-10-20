@@ -2,6 +2,7 @@
   <modal
     :visible="state.sharing"
     width="420px"
+    :cancel-btn="t('cancel')"
     :confirm-btn="shareType === 'share' ? t('copy_link') : t('copy_code')"
     @confirm="copyCode"
     @close="state.sharing = false"

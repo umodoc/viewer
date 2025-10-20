@@ -38,5 +38,6 @@
   "need_password": "This document requires a password to view",
   "need_password_tip": "Please enter the password and press Enter",
   "need_password_error": "Password verification failed, please try again",
-  "code_copy_success": "Code copied"
+  "code_copy_success": "Code copied",
+  "cancel": "Cancel"
 }

@@ -38,5 +38,6 @@
   "need_password": "当前文档需要密码才能查看",
   "need_password_tip": "请输入密码并回车查看",
   "need_password_error": "密码验证失败，请重试",
-  "code_copy_success": "代码已复制"
+  "code_copy_success": "代码已复制",
+  "cancel": "取消"
 }
