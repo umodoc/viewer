@@ -51,6 +51,7 @@
     "@tato30/vue-pdf": "^1.11.3",
     "@umoteam/editor": "^8.0.0",
     "@vueuse/core": "^13.5.0",
+    "default-passive-events": "^4.0.0",
     "echarts": "5",
     "plyr": "^3.7.8",
     "zod": "^4.0.5"
