@@ -94,6 +94,15 @@ Umo Viewer 是的诞生是为了解决[Umo Editor](https://github.com/umodoc/edi
 - ⭐ 给[Umo Viewer 仓库](https://github.com/umodoc/viewer)点个 Star，表示对项目的支持。
 - 🔗 如果您在项目中使用了 Umo Viewer，请添加一个链接到 https://github.com/umodoc/viewer 。
 
+## Umo Team 出品
+
+- [Umo Editor](https://dev.umodoc.com/cn/docs/editor): 基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。
+- [Umo Viewer](https://dev.umodoc.com/cn/docs/viewer): PDF 文档查看器，基于 Vue3 和 PDF.js 实现，支持在浏览器中直接预览 PDF 文档，同时也支持预览 Umo Editor 文档内容。
+- [Umo Editor Next](https://dev.umodoc.com/cn/docs/next): Umo Editor 的增强版，在包含最新版本的 Umo Editor 所有功能的基础上，重点增加或者增强了对多用户在线协作编辑、文档批注(评论)、文档历史版本管理、AI 创作、文档导入导出、表格等功能的支持，同时增强了工具栏和页边栏等区域的自定义能力。
+- [Umo Editor Server](https://dev.umodoc.com/cn/docs/server): 为增强 Umo Editor 功能，如多用户在线协作编辑、文档批注(评论)、文档导入导出等功能而开发的配套服务器端软件。
+- [Umo Office Viewer](https://dev.umodoc.com/cn/docs/office-viewer): Umo Office Viewer 是一款 Office 文档查看器，支持在 Web 页面中查看包括 WPS 文档在内的 40 余种主流的办公文档。
+- [Umo Office Convert](https://dev.umodoc.com/cn/docs/office-convert): 将 Office、WPS 等 40 余种办公文档转换为可在线查看的文档格式，可与 Umo Office Viewer 结合使用实现办公文档的在线预览。
+
 ## 开源协议
 
 Umo Viewer 采用 [MIT 许可证](https://github.com/umodoc/viewer/raw/main/LICENSE)，您可以免费使用、修改和使用本软件，但这不代表您可以随意删除版权信息，请保留 Umo Viewer 的版权信息和界面上的链接地址，否则视为侵权，请支持开源项目。
