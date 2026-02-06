@@ -1,56 +1,76 @@
 <template>
   <article
-    class="umo-zoomable-container umo-viewer-pages"
+    class="vu-viewer-content"
+    :class="{ 'umo-zoomable-container': !pageError }"
     :style="{
-      width: `${pageSize.width * state.zoom}px`,
-      height: `${pageSize.height * state.zoom}px`,
+      width: pageError ? '100%' : `${pageSize.width * state.zoom}px`,
+      height: pageError ? '100%' : `${pageSize.height * state.zoom}px`,
     }"
   >
-    <div
-      ref="pageRef"
-      class="umo-zoomable-content"
-      :style="{
-        transformOrigin: '0 0',
-        transform: `scale(${state.zoom})`,
-      }"
-      v-html="options.html"
-    ></div>
-    <t-image-viewer
-      v-model:visible="imageViewer"
-      v-model:index="currentImage"
-      :images="images"
-      @close="imageViewer = false"
-    />
-    <modal
-      dialog-class-name="uv-file-preview-modal"
-      :visible="filePreview"
-      :header="false"
-      :footer="false"
-      width="90vw"
-    >
-      <div class="uv-file-preview-modal-header">
-        <img :src="currentFile.icon" class="file-icon" />
-        <h3>{{ currentFile.fileName }}</h3>
-        <t-button
-          class="close-btn"
-          size="small"
-          shape="square"
-          variant="text"
-          @click="filePreview = false"
-        >
-          <icon name="close" size="18" />
-        </t-button>
-      </div>
-      <div class="umo-file-preview-modal-body">
-        <iframe :src="currentFile.previewURL"></iframe>
-      </div>
-    </modal>
+    <template v-if="!pageError">
+      <div
+        ref="pageRef"
+        class="umo-zoomable-content"
+        :style="{
+          transformOrigin: '0 0',
+          transform: `scale(${state.zoom})`,
+        }"
+        v-html="options.content"
+      ></div>
+      <t-image-viewer
+        v-model:visible="imageViewer"
+        v-model:index="currentImage"
+        :trigger="() => {}"
+        :images="images"
+        @close="imageViewer = false"
+      />
+      <modal
+        dialog-class-name="uv-file-preview-modal"
+        :visible="filePreview"
+        :header="false"
+        :footer="false"
+        width="90vw"
+      >
+        <div class="uv-file-preview-modal-header">
+          <img :src="currentFile.icon" class="file-icon" />
+          <h3>{{ currentFile.fileName }}</h3>
+          <t-button
+            class="close-btn"
+            size="small"
+            shape="square"
+            variant="text"
+            @click="filePreview = false"
+          >
+            <icon name="close" size="18" />
+          </t-button>
+        </div>
+        <div class="umo-file-preview-modal-body">
+          <iframe :src="currentFile.previewURL"></iframe>
+        </div>
+      </modal>
+    </template>
+    <template v-else>
+      <t-empty
+        :title="t('page_error_title')"
+        :description="t('page_error_description')"
+      >
+        <template #image>
+          <icon name="error" size="72" />
+        </template>
+        <template #action>
+          <t-button
+            :href="`https://dev.umodoc.com/${locale === 'zh-CN' ? 'cn' : 'en'}/docs/viewer/options#content`"
+            target="_blank"
+          >
+            {{ t('page_error_action') }}
+          </t-button>
+        </template>
+      </t-empty>
+    </template>
   </article>
 </template>
 
 <script setup>
-import * as echarts from 'echarts'
-
 import { player } from '@/utils/player'
 
 const container = inject('container')
@@ -59,6 +79,109 @@ const state = inject('state')
 const { locale, t } = useI18n()
 
 state.value.loaded = false
+const pageError = ref(false)
+
+// 远程加载第三方资源
+const loadedScripts = (() => {
+  const key = '__umoViewerLoadedScripts'
+  if (!globalThis[key]) {
+    globalThis[key] = new Set()
+  }
+  return globalThis[key]
+})()
+const resolveCdnUrl = (url) => {
+  if (typeof url !== 'string' || !url) return url
+  if (/^(https?:)?\/\//.test(url)) return url
+  if (url.startsWith('data:') || url.startsWith('blob:')) return url
+  const base =
+    typeof options.value.cdnUrl === 'string' ? options.value.cdnUrl : ''
+  const normalizedBase = base.trim().replace(/\/+$/, '')
+  if (!normalizedBase) return url
+  if (url.startsWith('/')) return `${normalizedBase}${url}`
+  return `${normalizedBase}/${url}`
+}
+const loadRemoteScript = (src) => {
+  const resolvedSrc = resolveCdnUrl(src)
+  if (loadedScripts.has(resolvedSrc)) return Promise.resolve()
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${resolvedSrc}"]`)
+    if (existing) {
+      loadedScripts.add(resolvedSrc)
+      resolve()
+      return
+    }
+    const script = document.createElement('script')
+    script.src = resolvedSrc
+    script.async = true
+    script.onload = () => {
+      loadedScripts.add(resolvedSrc)
+      resolve()
+    }
+    script.onerror = () =>
+      reject(new Error(`Failed to load script: ${resolvedSrc}`))
+    document.querySelector('head')?.append(script)
+  })
+}
+const loadedStyles = (() => {
+  const key = '__umoViewerLoadedStyles'
+  if (!globalThis[key]) {
+    globalThis[key] = new Set()
+  }
+  return globalThis[key]
+})()
+const loadRemoteStyle = (href, id) => {
+  const resolvedHref = resolveCdnUrl(href)
+  if (loadedStyles.has(resolvedHref)) return Promise.resolve()
+  return new Promise((resolve, reject) => {
+    if (id) {
+      const existingById = document.querySelector(`#${id}`)
+      if (existingById) {
+        loadedStyles.add(resolvedHref)
+        resolve()
+        return
+      }
+    }
+    const existing = document.querySelector(
+      `link[rel="stylesheet"][href="${resolvedHref}"]`,
+    )
+    if (existing) {
+      loadedStyles.add(resolvedHref)
+      resolve()
+      return
+    }
+    const link = document.createElement('link')
+    link.href = resolvedHref
+    link.rel = 'stylesheet'
+    if (id) link.id = id
+    link.onload = () => {
+      loadedStyles.add(resolvedHref)
+      resolve()
+    }
+    link.onerror = () =>
+      reject(new Error(`Failed to load style: ${resolvedHref}`))
+    document.querySelector('head')?.append(link)
+  })
+}
+const scheduleTask = (fn) => {
+  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    window.requestIdleCallback(() => fn(), { timeout: 1000 })
+    return
+  }
+  setTimeout(fn, 0)
+}
+const getEcharts = async () => {
+  if (globalThis.echarts?.init) return globalThis.echarts
+  await loadRemoteScript('libs/echarts/echarts.min.js')
+  if (globalThis.echarts?.init) return globalThis.echarts
+  throw new Error('ECharts not loaded')
+}
+const ensurePlyr = async () => {
+  if (globalThis.Plyr) return
+  await Promise.all([
+    loadRemoteStyle('libs/plyr/plyr.min.css', 'plyr-style'),
+    loadRemoteScript('libs/plyr/plyr.min.js'),
+  ])
+}
 
 // 页面大小
 const pageRef = ref(null)
@@ -66,6 +189,19 @@ const pageSize = reactive({
   width: 0,
   height: 0,
 })
+// 校验页面内容
+const checkPageContent = () => {
+  const pageNode = pageRef.value.querySelector('.umo-page-content')
+  if (!pageNode) {
+    console.error(
+      'Please provide the document HTML content. See: https://dev.umodoc.com/en/docs/viewer/options#content',
+    )
+    pageError.value = true
+    return false
+  }
+  pageError.value = false
+  return true
+}
 // 设置页面信息
 const setPageInfo = () => {
   // 页面大小
@@ -102,6 +238,8 @@ const currentFile = ref({
   previewURL: '',
 })
 const enhancement = async () => {
+  if (!checkPageContent()) return
+
   // 图片节点
   const imageNodes = pageRef.value.querySelectorAll('.umo-node-image')
   imageNodes.forEach((node) => {
@@ -127,7 +265,20 @@ const enhancement = async () => {
 
   // 视频音频节点
   const mediaNodes = pageRef.value.querySelectorAll('video, audio')
-  mediaNodes.forEach((node) => player(node, locale.value))
+  if (mediaNodes.length > 0) {
+    const mediaNodeList = Array.from(mediaNodes)
+    ensurePlyr()
+      .catch(() => null)
+      .then(() => {
+        scheduleTask(() => {
+          mediaNodeList.forEach((node) => {
+            try {
+              player(node, locale.value)
+            } catch {}
+          })
+        })
+      })
+  }
 
   // 文件节点
   const fileNodes = pageRef.value.querySelectorAll('.umo-node-file')
@@ -167,29 +318,43 @@ const enhancement = async () => {
 
   // 图表节点
   const chartNodes = pageRef.value.querySelectorAll('.umo-node-echarts')
-  chartNodes.forEach((node) => {
-    const chartNode = node.querySelector('.umo-node-echarts-body')
-    const chart = echarts.init(chartNode)
-    const option = JSON.parse(node.getAttribute('data-options'))
-    chart.setOption(option)
-    chart.on('finished', () => {
-      const chartImage = chart.getDataURL({
-        pixelRatio: 2,
-        backgroundColor: '#fff',
+  if (chartNodes.length > 0) {
+    const chartNodeList = Array.from(chartNodes)
+    getEcharts()
+      .then((echarts) => {
+        scheduleTask(() => {
+          chartNodeList.forEach((node) => {
+            const chartNode = node.querySelector('.umo-node-echarts-body')
+            if (!chartNode) return
+            const optionStr = node.getAttribute('data-options')
+            if (!optionStr) return
+            let option
+            try {
+              option = JSON.parse(optionStr)
+            } catch {
+              return
+            }
+            const chart = echarts.init(chartNode)
+            chart.setOption(option)
+            chart.on('finished', () => {
+              const chartImage = chart.getDataURL({
+                pixelRatio: 2,
+                backgroundColor: '#fff',
+              })
+              node.setAttribute('data-chart-url', chartImage)
+            })
+          })
+        })
       })
-      node.setAttribute('data-chart-url', chartImage)
-    })
-  })
+      .catch(() => {})
+  }
 
   // 公式节点样式
-  const pageNode = pageRef.value.querySelector('.umo-page-content')
-  const katexStyle = pageNode.getAttribute('data-katex-style')
-  if (katexStyle) {
-    const style = document.createElement('link')
-    style.href = katexStyle
-    style.rel = 'stylesheet'
-    style.id = 'katex-style'
-    document.querySelector('head')?.append(style)
+  const mathNodes = pageRef.value.querySelectorAll(
+    '.tiptap-mathematics-render, .Tiptap-mathematics-render',
+  )
+  if (mathNodes.length > 0) {
+    loadRemoteStyle('libs/katex/katex.min.css', 'katex-style')
   }
 }
 onMounted(async () => {
@@ -201,7 +366,13 @@ onMounted(async () => {
 
 // 页面大纲
 const getTocFromContent = () => {
+  if (!checkPageContent()) {
+    return []
+  }
   const editorEl = document.querySelector(`${container} .umo-editor`)
+  if (!editorEl) {
+    return
+  }
   const headingsArr = Array.from(
     editorEl.querySelectorAll('h1, h2, h3, h4, h5, h6'),
   )
@@ -292,6 +463,14 @@ watch(
 </script>
 
 <style lang="less">
+.vu-viewer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.uv-page-error {
+}
 .umo-zoomable-container {
   box-shadow: var(--uv-page-shadow);
   margin: 0 auto;
@@ -327,7 +506,7 @@ watch(
 .uv-file-preview-modal {
   padding: 0 !important;
   overflow: hidden;
-  .uv-dialog {
+  .t-dialog {
     &__header {
       display: none !important;
     }
@@ -370,7 +549,8 @@ watch(
     }
   }
 }
-.Tiptap-mathematics-render {
+.Tiptap-mathematics-render,
+.tiptap-mathematics-render {
   background: none !important;
   cursor: default !important;
 }

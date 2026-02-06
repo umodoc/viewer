@@ -9,11 +9,6 @@ const props = {
   // Theme
   theme: z.literal(['light', 'dark', 'auto'], 'Must be light, dark or auto'),
 
-  // Preview mode
-  mode: z
-    .literal(['html', 'pdf'], 'Must be html or pdf')
-    .array('Must be array'),
-
   // Document title
   title: z.string('Must be string').nonempty('Cannot be empty'),
 
@@ -25,6 +20,12 @@ const props = {
     }),
     'Must be array',
   ),
+
+  // Page content
+  content: z.string('Must be string').nonempty('Cannot be empty'),
+
+  // CDN URL
+  cdnUrl: z.string('Must be string').optional(),
 
   // Show header
   showHeader: z.boolean('Must be boolean'),
@@ -38,21 +39,11 @@ const props = {
   // Printable
   printable: z.boolean('Must be boolean'),
 
-  // Downloadable
-  downloadable: z.boolean('Must be boolean'),
-
   // Closeable
   closeable: z.boolean('Must be boolean'),
 
   // Share URL
   shareUrl: z.string('Must be url').optional(),
-
-  // Page content
-  html: z.string('Must be string').nonempty('Cannot be empty'),
-  pdf: z.string('Must be url').optional(),
-
-  // Show multi-column
-  showMultiPage: z.boolean('Must be boolean'),
 
   // Fit width
   fitWidth: z.boolean('Must be boolean'),
@@ -71,7 +62,18 @@ const props = {
 }
 
 const schemaParse = (options) => {
-  const result = z.object(props).safeParse(options)
+  const normalizedOptions = { ...options }
+  if (
+    normalizedOptions.content === undefined &&
+    typeof normalizedOptions.html === 'string'
+  ) {
+    normalizedOptions.content = normalizedOptions.html
+  }
+  if ('html' in normalizedOptions) {
+    delete normalizedOptions.html
+  }
+
+  const result = z.object(props).strict().safeParse(normalizedOptions)
   if (!result.success) {
     result.error.issues.forEach((item) => {
       throw new Error(`${item.path[0]} validation failed: ${item.message};`)

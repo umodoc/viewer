@@ -1,17 +1,11 @@
 <template>
-  <iframe
-    ref="iframeRef"
-    class="umo-viewer-print-iframe"
-    :srcdoc="iframeCode"
-    :src="options.pdf"
-  />
+  <iframe class="umo-viewer-print-iframe" :srcdoc="iframeCode" />
 </template>
 
 <script setup>
 const container = inject('container')
 const options = inject('options')
 const state = inject('state')
-const iframeRef = ref(null)
 const iframeCode = ref(undefined)
 
 const getStylesHtml = () => {
@@ -21,10 +15,7 @@ const getStylesHtml = () => {
 }
 const getIframeCode = () => {
   const { theme, title } = options.value
-  const { view, page } = state.value
-  if (view === 'pdf') {
-    return undefined
-  }
+  const { page } = state.value
   const getPageHtml = () => {
     const pageNode = document
       .querySelector(`${container} .umo-page-content`)
@@ -78,7 +69,7 @@ const getIframeCode = () => {
           ${getPageHtml()}
         </div>
       </div>
-      <script>
+      <scr>
         window.addEventListener('load', () => {
           setTimeout(() => {
             window.print()
@@ -97,7 +88,7 @@ const getIframeCode = () => {
             });
           });
         });
-      <\/script>
+      ${'</scr' + 'ipt>'}
     </body>
     </html>`
 }
@@ -106,11 +97,7 @@ const cancelPrint = () => {
   state.value.printing = false
 }
 onMounted(() => {
-  if (state.value.view === 'html') {
-    iframeCode.value = getIframeCode()
-  } else {
-    iframeRef.value.contentWindow.print()
-  }
+  iframeCode.value = getIframeCode()
   window.addEventListener('focus', cancelPrint)
 })
 onUnmounted(() => {

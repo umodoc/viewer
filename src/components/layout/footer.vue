@@ -9,46 +9,8 @@
       <icon :name="options.showAside ? 'aside-fold' : 'aside'" size="14" />
       {{ options.showAside ? t('aside_fold') : t('aside_open') }}
     </t-button>
-    <template v-if="views.length > 1">
-      <div class="umo-viewer-footer-split"></div>
-      <t-dropdown :attach="container" placement="top-left" trigger="click">
-        <t-button
-          class="umo-viewer-footer-button auto-width"
-          variant="text"
-          size="small"
-        >
-          <icon :name="currentView.value" size="14" />
-          {{ currentView.content }}
-        </t-button>
-        <t-dropdown-menu>
-          <t-dropdown-item
-            v-for="item in views"
-            :key="item.value"
-            :value="item.value"
-            :active="item.value === state.view"
-            @click="state.view = item.value"
-          >
-            <div class="umo-viewer-footer-dropdown-item">
-              <icon :name="item.value" size="16" />
-              {{ item.content }}
-            </div>
-          </t-dropdown-item>
-        </t-dropdown-menu>
-      </t-dropdown>
-    </template>
   </div>
   <div class="umo-viewer-footer-right">
-    <tooltip v-if="state.view === 'pdf'" :content="t('show_multi_page')">
-      <t-button
-        class="umo-viewer-footer-button"
-        :class="{ active: options.showMultiPage }"
-        variant="text"
-        size="small"
-        @click="options.showMultiPage = !options.showMultiPage"
-      >
-        <icon name="column" />
-      </t-button>
-    </tooltip>
     <tooltip
       :content="
         fullscreenRef?.isFullscreen ? t('fullscreen_exit') : t('fullscreen')
@@ -136,26 +98,6 @@ const container = inject('container')
 const options = inject('options')
 const state = inject('state')
 
-// 视图设置
-const views = computed(() => {
-  const names = {
-    html: t('view_html'),
-    pdf: t('view_pdf'),
-  }
-  return options.value.mode.map((item) => {
-    return {
-      content: names[item],
-      value: item,
-    }
-  })
-})
-const currentView = computed(() => {
-  return views.value.find((item) => item.value === state.value.view)
-})
-watch(currentView, () => {
-  state.value.aside = currentView === 'html' ? 'toc' : 'thumbs'
-})
-
 // 全屏设置
 const fullscreenRef = ref(null)
 onMounted(() => {
@@ -202,9 +144,6 @@ const setFitWidth = async (enabled = true) => {
     state.value.zoom = Number(
       ((pageMainWidth - 40) / (page.width + 15)).toFixed(2),
     )
-    if (state.value.view === 'pdf') {
-      options.value.showMultiPage = false
-    }
   } catch {}
 }
 watch(

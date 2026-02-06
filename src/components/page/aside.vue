@@ -14,7 +14,7 @@
             </t-button>
           </tooltip>
         </template>
-        <t-tab-panel v-if="state.view === 'html'" value="toc" destroy-on-hide>
+        <t-tab-panel value="toc" destroy-on-hide>
           <template #label>
             <icon name="toc" />
             <span>{{ t('toc') }}</span>
@@ -33,32 +33,6 @@
             </div>
             <div v-else class="umo-viewer-aside-toc-empty">
               {{ t('toc_empty') }}
-            </div>
-          </div>
-        </t-tab-panel>
-        <t-tab-panel v-if="state.view === 'pdf'" value="thumbs" destroy-on-hide>
-          <template #label>
-            <icon name="thumb" />
-            <span>{{ t('thumbs') }}</span>
-          </template>
-          <div class="umo-viewer-tabs-content uv-scrollbar">
-            <div v-if="state?.pdfDocument" class="umo-viewer-aside-pages">
-              <div
-                v-for="page in state.pdfDocument.pages"
-                :key="page"
-                class="umo-viewer-aside-page"
-                :class="{ active: state.activePage === page }"
-                @click="scrollToPage(page)"
-              >
-                <pdf-page
-                  :pdf="state.pdfDocument.pdf"
-                  :page="page"
-                  fit-parent
-                />
-                <span class="umo-viewer-aside-page-number">
-                  {{ page }}/{{ state.pdfDocument.pages }}
-                </span>
-              </div>
             </div>
           </div>
         </t-tab-panel>
@@ -85,8 +59,6 @@
 </template>
 
 <script setup>
-import { VuePDF as PdfPage } from '@tato30/vue-pdf'
-
 const { t } = useI18n()
 const container = inject('container')
 const options = inject('options')
@@ -119,50 +91,6 @@ watch(
           })
       } catch {}
     }, 300)
-  },
-)
-
-// 页面缩略图
-const scrollToPage = (page) => {
-  const canvas = document.querySelector(`${container} #umo-viewer-page-${page}`)
-  if (canvas) {
-    canvas.scrollIntoView({
-      block: 'start',
-    })
-  }
-}
-
-// 监听当前页，缩略图滚动到可视区域
-const scrollThumbIntoView = async () => {
-  if (state.value.aside !== 'thumbs') return
-  console.log(state.value.activePage)
-  await nextTick()
-  setTimeout(() => {
-    const activePageEl = document.querySelector(
-      `${container} .umo-viewer-aside-page.active`,
-    )
-    activePageEl.scrollIntoView({
-      block: 'nearest',
-    })
-  }, 350)
-}
-watch(() => state.value.activePage, scrollThumbIntoView, { immediate: true })
-
-watch(() => state.value.aside, scrollThumbIntoView)
-
-// 监听选项卡，当切换页面视图模式时，更新选中状态
-watch(
-  () => state.value.view,
-  (view) => {
-    if (state.value.aside === 'toc' && view === 'pdf') {
-      state.value.aside = 'thumbs'
-    }
-    if (state.value.aside === 'thumbs' && view === 'html') {
-      state.value.aside = 'toc'
-    }
-  },
-  {
-    immediate: true,
   },
 )
 </script>
@@ -208,6 +136,7 @@ watch(
         display: flex;
         align-items: center;
         margin-right: 10px;
+        margin-top: -1px;
       }
       &__content {
         height: calc(100% - var(--td-comp-size-xxl));
@@ -261,62 +190,6 @@ watch(
       text-align: center;
       padding: 50px 20px;
       color: var(--uv-text-color-light);
-    }
-  }
-  &-pages {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-  &-page {
-    width: 150px;
-    display: flex;
-    position: relative;
-    cursor: pointer;
-    transition: border 0.3s;
-    max-width: 100%;
-    user-select: none;
-    > :first-child {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: solid 1px var(--uv-border-color);
-      transition: border 0.3s;
-    }
-    &-number {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 10px;
-      background-color: rgba(0, 0, 0, 0.3);
-      color: #fff;
-      padding: 2px 4px 3px;
-      border-radius: 15px;
-      line-height: 1;
-      min-width: 30px;
-      text-align: center;
-    }
-    &:hover {
-      > :first-child {
-        box-shadow:
-          0 0 10px #0000000f,
-          0 0 0 1px #0000000a;
-      }
-      .umo-viewer-aside-page-number {
-        background-color: var(--uv-primary-color);
-      }
-    }
-    &.active {
-      > :first-child {
-        border: solid 2px var(--uv-primary-color);
-      }
-      .umo-viewer-aside-page-number {
-        background-color: var(--uv-primary-color);
-      }
     }
   }
 }

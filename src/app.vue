@@ -13,14 +13,11 @@
 </template>
 
 <script setup>
-import '@umoteam/editor/style'
-
-import html from '../public/test/demo.html?raw'
+import content from '../public/test/content.txt?raw'
 
 const options = ref({
   lang: 'zh-CN',
   theme: 'light',
-  mode: ['html', 'pdf'],
   title: 'umo-viewer demo',
   meta: [
     {
@@ -29,17 +26,15 @@ const options = ref({
     },
     {
       label: '简介',
-      content: 'Umo Viewer 是一款 PDF 文档查看器，同时也支持预览富文本内容',
+      content: 'Umo Viewer 支持预览 Umo Editor 文档内容',
     },
   ],
+  cdnUrl: 'https://beta.cdn.umodoc.com',
   showHeader: true,
   showAside: true,
-  html,
-  // https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf
-  pdf: '/umo-viewer/test/demo.pdf',
+  content,
   editable: true,
   printable: true,
-  downloadable: true,
   closeable: true,
   shareUrl: 'https://baidu.com',
   fitWidth: false,

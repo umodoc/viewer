@@ -48,16 +48,6 @@
           </div>
         </t-dropdown-item>
         <t-dropdown-item
-          v-if="options.downloadable"
-          value="download"
-          @click="download"
-        >
-          <div class="umo-viewer-header-actions-dropdown-item">
-            <icon name="download" />
-            {{ t('download') }}
-          </div>
-        </t-dropdown-item>
-        <t-dropdown-item
           v-if="options.shareUrl?.length > 0"
           value="share"
           @click="share"
@@ -84,8 +74,6 @@
 </template>
 
 <script setup>
-import { DialogPlugin } from 'tdesign-vue-next'
-
 const { t } = useI18n()
 const container = inject('container')
 const options = inject('options')
@@ -108,30 +96,6 @@ const onEdit = () => {
 
 const print = () => {
   state.value.printing = true
-}
-
-const download = () => {
-  if (state.value.view === 'html') {
-    const dialog = DialogPlugin.confirm({
-      attach: container,
-      theme: 'info',
-      header: t('download'),
-      body: t('download_message'),
-      confirmBtn: t('download_confirm'),
-      onConfirm() {
-        dialog.destroy()
-        print()
-      },
-    })
-    return
-  }
-  // 创建下载链接
-  const link = document.createElement('a')
-  link.href = options.value.pdf
-  link.download = `${options.value.title}.pdf`
-  link.click()
-  // 移除下载链接
-  link.remove()
 }
 
 const share = () => {

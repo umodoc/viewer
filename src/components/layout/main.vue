@@ -5,14 +5,9 @@
   >
     <page-aside />
   </aside>
-  <div class="umo-viewer-main-body uv-scrollbar" :data-view="state.view">
-    <template v-if="options.needPassword">
-      <page-password />
-    </template>
-    <template v-else>
-      <page-html v-if="state.view === 'html'" />
-      <page-pdf v-if="state.view === 'pdf'" />
-    </template>
+  <div class="umo-viewer-main-body uv-scrollbar">
+    <page-password v-if="options.needPassword" />
+    <page-content v-else />
   </div>
   <t-loading
     class="umo-viewer-loading"
@@ -36,15 +31,6 @@ const { t } = useI18n()
 const container = inject('container')
 const options = inject('options')
 const state = inject('state')
-
-// 视图模式发生变化时，页面容器滚动到顶部
-watch(
-  () => state.value.view,
-  () => {
-    document.querySelector(`${container} .umo-viewer-main-body`).scrollTop = 0
-    state.value.loaded = false
-  },
-)
 </script>
 
 <style lang="less" scoped>
@@ -58,10 +44,6 @@ watch(
     scroll-behavior: smooth;
     flex: 1;
     position: relative;
-    &[data-view='pdf'] {
-      display: flex;
-      flex-direction: column;
-    }
   }
   &-back-top {
     position: absolute;

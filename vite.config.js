@@ -13,11 +13,13 @@ const vuePlugins = {
     dirs: ['./src/composables'],
     imports: ['vue', '@vueuse/core'],
     resolvers: [TDesignResolver({ library: 'vue-next', esm: true })],
+    dts: './types/imports.d.ts',
   }),
   Components: Components({
     directoryAsNamespace: true,
     dirs: ['./src/components'],
     resolvers: [TDesignResolver({ library: 'vue-next', esm: true })],
+    dts: './types/components.d.ts',
   }),
   SvgIcons: createSvgIconsPlugin({
     iconDirs: [`${process.cwd()}/src/assets/icons`],
@@ -28,6 +30,7 @@ const vuePlugins = {
 
 // Build configuration
 const buildConfig = {
+  target: 'es2018',
   lib: {
     entry: `${process.cwd()}/src/components/index.js`,
     name: pkg.name,
@@ -40,7 +43,7 @@ const buildConfig = {
   rollupOptions: {
     output: [
       {
-        intro: `import './style.css'`,
+        intro: `import './umo-viewer.css'`,
         format: 'es',
       },
     ],

@@ -25,6 +25,7 @@
 </template>
 
 <script setup>
+import '@umoteam/editor/style'
 import '@/assets/styles/index.less'
 
 import { schemaParse } from '@/components/options.js'
@@ -40,17 +41,21 @@ const props = defineProps({
     type: String,
     default: 'light',
   },
-  mode: {
-    type: Array,
-    default: () => ['pdf', 'html'],
-  },
   title: {
+    type: String,
+    required: true,
+  },
+  content: {
     type: String,
     required: true,
   },
   meta: {
     type: Array,
     default: () => [],
+  },
+  cdnUrl: {
+    type: String,
+    default: 'https://unpkg.com/@umoteam/editor-external@latest',
   },
   showHeader: {
     type: Boolean,
@@ -68,10 +73,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  downloadable: {
-    type: Boolean,
-    default: true,
-  },
   closeable: {
     type: Boolean,
     default: false,
@@ -79,18 +80,6 @@ const props = defineProps({
   shareUrl: {
     type: String,
     default: undefined,
-  },
-  html: {
-    type: String,
-    required: true,
-  },
-  pdf: {
-    type: String,
-    default: undefined,
-  },
-  showMultiPage: {
-    type: Boolean,
-    default: false,
   },
   fitWidth: {
     type: Boolean,
@@ -142,14 +131,11 @@ provide('options', options)
 // 维护全局状态
 const state = ref({
   loaded: false,
-  aside: options.value.mode[0] === 'html' ? 'toc' : 'thumbs',
-  view: options.value.mode[0],
+  aside: 'toc',
   toc: [],
   activeHeading: [],
-  activePage: 1,
   zoom: 1,
   page: {},
-  pdfDocument: null,
   printing: false,
   sharing: false,
   about: false,
