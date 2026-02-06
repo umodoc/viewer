@@ -13,6 +13,8 @@
 
 # 基本介绍
 
+> 注意：自 v1.0.0 版本起，Umo Viewer 不再支持 PDF 文档的预览。
+
 Umo Viewer 是一款预览 Umo Editor 文档内容的文档查看器。Umo Viewer 是的诞生是为了解决[Umo Editor](https://github.com/umodoc/editor)文档的预览问题。在大部分的非编辑应用场景中，只需要显示文档内容而无需加载整个编辑器以提高加载速度，Umo Viewer 能与 [Umo Editor](https://github.com/umodoc/editor) 文档无缝集成并保持良好的兼容性。
 
 [Umo Editor](https://github.com/umodoc/editor) 是一个基于 Vue3 和 Tiptap 的本土化开源文档编辑器，专为国人用户设计。它提供了强大的文档编辑能力和 AI 创作功能，支持分页模式和普通 Web 模式、Markdown 语法、富文本编辑、多种格式的节点插入、页面样式设置、文档导出与打印等功能。Umo Viewer 是 Umo Editor 的文档查看器，提供了与 Umo Editor 文档无缝集成的预览功能。
