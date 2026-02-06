@@ -34,5 +34,6 @@
   "code_copy_success": "Code copied",
   "page_error_title": "Document loading failed",
   "page_error_description": "Please pass in the correct Umo Editor document content",
-  "page_error_action": "Learn more"
+  "page_error_action": "Learn more",
+  "cancel": "Cancel"
 }

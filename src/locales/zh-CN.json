@@ -34,5 +34,6 @@
   "code_copy_success": "代码已复制",
   "page_error_title": "文档加载失败",
   "page_error_description": "请传入正确的 Umo Editor 文档内容",
-  "page_error_action": "了解更多"
+  "page_error_action": "了解更多",
+  "cancel": "取消"
 }

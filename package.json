@@ -1,6 +1,6 @@
 {
   "name": "@umoteam/viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Umo Viewer is a document viewer built with Vue3. It allows you to preview Umo Editor document content in your browser.",
   "keywords": [
     "umo editor",
