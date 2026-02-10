@@ -25,7 +25,6 @@
 </template>
 
 <script setup>
-import '@umoteam/editor/style'
 import '@/assets/styles/index.less'
 
 import { schemaParse } from '@/components/options.js'
