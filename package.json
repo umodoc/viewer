@@ -43,6 +43,7 @@
   "dependencies": {
     "@umoteam/editor": "latest",
     "@vueuse/core": "^13.5.0",
+    "default-passive-events": "^4.0.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {
