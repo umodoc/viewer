@@ -69,11 +69,11 @@ const getIframeCode = () => {
           ${getPageHtml()}
         </div>
       </div>
-      <scr>
+      <script>
         window.addEventListener('load', () => {
           setTimeout(() => {
             window.print()
-          }, 200);
+          }, 500);
         })
         document.addEventListener("DOMContentLoaded", (event) => {
           const observer = new MutationObserver(mutations => {
