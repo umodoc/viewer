@@ -13,6 +13,7 @@
 </template>
 
 <script setup>
+import '@umoteam/editor/style'
 import content from '../public/test/content.txt?raw'
 
 const options = ref({

@@ -265,9 +265,6 @@ const enhancement = async () => {
         imageViewer.value = true
       }
       image.addEventListener('click', setImageViewer)
-      onBeforeUnmount(() => {
-        image.removeEventListener('click', setImageViewer)
-      })
     }
   })
 
@@ -300,9 +297,6 @@ const enhancement = async () => {
     }
     if (!preview) return
     preview.addEventListener('click', setFilePreview)
-    onBeforeUnmount(() => {
-      preview.removeEventListener('click', setFilePreview)
-    })
   })
 
   // 代码块节点
