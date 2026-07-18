@@ -237,6 +237,12 @@ const currentFile = ref({
   fileName: '',
   previewURL: '',
 })
+const createImageId = () => {
+  return (
+    globalThis.crypto?.randomUUID?.() ||
+    `umo-image-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`
+  )
+}
 const enhancement = async () => {
   if (!checkPageContent()) return
 
@@ -245,14 +251,16 @@ const enhancement = async () => {
   imageNodes.forEach((node) => {
     const image = node.querySelector('img[src]:not(.umo-icon)')
     if (image?.src) {
+      const imageId = image.getAttribute('data-id') || createImageId()
+      image.setAttribute('data-id', imageId)
       images.value.push({
-        id: image.getAttribute('data-id'),
+        id: imageId,
         mainImage: image.src,
       })
       image.style.cursor = 'pointer'
       const setImageViewer = () => {
         currentImage.value = images.value.findIndex(
-          (item) => item.id === image.getAttribute('data-id'),
+          (item) => item.id === imageId,
         )
         imageViewer.value = true
       }
